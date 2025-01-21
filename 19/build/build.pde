@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 color[] palette = {#102341, #faf0f8, #00f5b8, #ffef85, #6190ff };
 String pathDATA = "../../_data/";
 Table prompts;
