@@ -22,7 +22,7 @@ void draw() {
   grid();
   sig(day, prompts.getString(day - 1, 0), true, 1, 0);
   off += rate;
-  record();
+  record();cp - 
 }
 
 void grid() {
