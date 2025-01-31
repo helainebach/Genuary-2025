@@ -7,48 +7,31 @@ Table prompts;
 String folderName;
 PFont font;
 float off = 0;
-float rate = PI/16;
-int day = 29;
-int u = 20;
-
+float rate = PI / 150;
+int day = 1;
+PImage[]images = new PImage[30];
 
 void setup() {
   size(1080, 1080);
   folderName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
   font = createFont(pathDATA + "ubuntu.ttf", 20);
   prompts = loadTable(pathDATA + "prompts.csv", "header");
-  background(palette[0]);
-  grid();
+  for (int i = 0; i < 30; i++) {
+    images[i] = loadImage("../exports/" + folderName + "/" + nf(i, 3) + ".png");
+  }
 }
 
 void draw() {
-  float n = noise(off)*width/2;
-  PVector p = new PVector(width/2 + cos(off) * n, height/2 + sin(off) * n);
-  noStroke();
-  fill(palette[4]);
-  square(snap(p.x), snap(p.y), u);
+  background(palette[0]);
+
   sig(day, prompts.getString(day - 1, 0), true, 1, 0);
   off += rate;
-  record();
-}
-
-int snap(float n) {
-  return int(n / u) * u;
-}
-
-void grid() {
-  for (int x = 0; x < width; x += u) {
-    for (int y = 0; y < height; y += u) {
-      stroke(palette[4]);
-      strokeWeight(1);
-      line(x, 0, x, height);
-      line(0, y, width, y);
-    }
-  }
+  // record();
 }
 
 void record() {
   saveFrame("../exports/" + folderName + "/###.png");
+  if (frameCount > TWO_PI / rate) exit();
 }
 
 void keyPressed() {
